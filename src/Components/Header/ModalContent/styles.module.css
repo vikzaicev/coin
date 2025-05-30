@@ -1,0 +1,19 @@
+.flex {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    margin-top: 20px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #5a64a3;
+    padding-bottom: 5px;
+}
+.title:not(:last-child) {
+    margin-right: 40px;
+}
+.name {
+    font-size: 20px;
+    font-weight: 600;
+}
+.text {
+    margin-bottom: 5px;
+}

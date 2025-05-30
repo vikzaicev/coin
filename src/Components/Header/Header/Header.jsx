@@ -1,9 +1,9 @@
 import styles from './styles.module.css';
-import { Layout, Select, Space, Modal, Button, Drawer } from 'antd';
+import { Layout, Modal, Button, Drawer, Select, Space, Typography, } from 'antd';
 import { useContext, useState, useEffect } from 'react';
 import { CriptoContext } from '../../../Context';
 import { ModaContent } from '../ModalContent/ModalContent';
-import { AddAsset } from '../AddAsset/AddAsset';
+import { AddNewAsset } from '../AddAsset/AddAsset';
 
 const { Header } = Layout;
 const headerStyle = {
@@ -13,15 +13,14 @@ const headerStyle = {
     padding: '10px',
     color: '#fff',
     height: 60,
-    // backgroundColor: '#4096ff',
 };
 
 export const HeaderComp = () => {
     const { coinData } = useContext(CriptoContext);
-    const [select, setSelect] = useState(false)
     const [modal, setModal] = useState(false)
     const [coin, setCoin] = useState(null)
     const [drawer, setDrawer] = useState(false)
+    const [select, setSelect] = useState(false)
 
     useEffect(() => {
         const keypress = (e) => {
@@ -36,14 +35,8 @@ export const HeaderComp = () => {
     const handleChange = value => {
         setModal(true)
         setCoin(coinData.find(coin => coin.id === value));
-        // console.log(`selected ${value}`);
+        // setSelect(false);
     };
-
-    const handleBTN = () => {
-        setDrawer(true)
-    }
-
-
 
     return (
         <Header style={headerStyle}>
@@ -66,7 +59,6 @@ export const HeaderComp = () => {
                 )}
             />
             <Modal
-                // title="Basic Modal"
                 closable={{ 'aria-label': 'Custom Close Button' }}
                 open={modal}
                 onOk={() => setModal(false)}
@@ -75,14 +67,16 @@ export const HeaderComp = () => {
             >
                 <ModaContent coin={coin} />
             </Modal>
-            <Button type="primary" onClick={handleBTN}>Add Asset</Button>
+            <Button type="primary" onClick={() => setDrawer(true)}>Add Asset</Button>
             <Drawer
-                // title="Basic Drawer"
+                title="Add Asset"
+                size='large'
                 closable={{ 'aria-label': 'Close Button' }}
                 onClose={() => setDrawer(prev => !prev)}
                 open={drawer}
+                destroyOnHidden={true}
             >
-                <AddAsset />
+                <AddNewAsset onClose={() => setDrawer(false)} />
             </Drawer>
         </Header >
     );
