@@ -22,7 +22,7 @@ export const SiderComp = () => {
                 return (
                     <Card className={styles.card} key={aset.id}>
                         <Statistic
-                            title={toUpperCase(aset.id)}
+                            title={`(${aset.symbol}) ${(toUpperCase(aset.id))}`}
                             value={aset.totalAmount}
                             precision={2}
                             valueStyle={{ color: aset.grow ? '#3f8600' : '#cf1322' }}

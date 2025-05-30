@@ -16,26 +16,27 @@ export function CriptoContextProvider({ children }) {
     const [dataAssets, setDataAssets] = useState(criptoAssets);
     const [coinData, setCoinData] = useState([]);
 
+    const mapAssets = (assets, result) => {
+        return assets.map(asset => {
+            const coin = result.find(coin => coin.id === asset.id)
+            return {
+                symbol: coin.symbol,
+                grow: asset.price < coin.price,
+                growPersent: persentDifference(+asset.price, +coin.price),
+                totalAmount: asset.amount * coin.price,
+                totalPrice: asset.amount * coin.price - asset.amount * asset.price,
+                ...asset,
+            };
+        })
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true)
                 const data = await fetchCoinData();
+                setDataAssets(mapAssets(dataAssets, data.result))
                 setCoinData(data.result);
-                setDataAssets(
-                    dataAssets.map(asset => {
-                        const coin = data.result.find(coin => coin.id === asset.id);
-
-                        return {
-                            grow: asset.price < coin.price,
-                            growPersent: persentDifference(asset.price, coin.price),
-                            totalAmount: asset.amount * coin.price,
-                            totalPrice: asset.amount * coin.price - asset.amount * asset.price,
-                            ...asset,
-                        };
-                    }
-                    )
-                )
                 setLoading(false)
             } catch (error) {
                 console.error('Error fetching coin data:', error);
@@ -44,8 +45,12 @@ export function CriptoContextProvider({ children }) {
         fetchData();
     }, []);
 
+    const addAsset = (newAsset) => {
+        setDataAssets((prev) => mapAssets([...prev, newAsset], coinData));
+    }
+
     return (
-        <CriptoContext.Provider value={{ loading, dataAssets, coinData }}>
+        <CriptoContext.Provider value={{ loading, dataAssets, coinData, addAsset }}>
             {children}
         </CriptoContext.Provider>
     );
