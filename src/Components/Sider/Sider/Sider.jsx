@@ -39,7 +39,7 @@ export const SiderComp = () => {
                             renderItem={(item) => (
                                 <List.Item>
                                     <span >{item.title}:</span>
-                                    {item.withTag && <Tag color={aset.grow ? 'green' : 'red'}>{aset.growPersent}</Tag>}
+                                    {item.withTag && <Tag color={aset.grow ? 'green' : 'red'}>{aset.growPersent}%</Tag>}
                                     <span >{item.isPlain && (+item.value).toFixed(2)}
                                         {!item.isPlain && <Typography.Text type={aset.grow ? 'success' : 'danger'}>
                                             {(+item.value).toFixed(2) + '$'}
