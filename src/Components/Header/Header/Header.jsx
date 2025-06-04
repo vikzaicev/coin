@@ -4,6 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 import { CriptoContext } from '../../../Context';
 import { ModaContent } from '../ModalContent/ModalContent';
 import { AddNewAsset } from '../AddAsset/AddAsset';
+import { DeleteAsset } from '../DeleteAsset/DeleteAsset';
 
 const { Header } = Layout;
 const headerStyle = {
@@ -20,6 +21,7 @@ export const HeaderComp = () => {
     const [modal, setModal] = useState(false)
     const [coin, setCoin] = useState(null)
     const [drawer, setDrawer] = useState(false)
+    const [drawer2, setDrawer2] = useState(false)
     const [select, setSelect] = useState(false)
 
     useEffect(() => {
@@ -67,7 +69,10 @@ export const HeaderComp = () => {
             >
                 <ModaContent coin={coin} />
             </Modal>
-            <Button type="primary" onClick={() => setDrawer(true)}>Add Asset</Button>
+            <div className="">
+                <Button type="primary" style={{ marginRight: '25px' }} onClick={() => setDrawer2(true)}>Delete Asset</Button>
+                <Button type="primary" onClick={() => setDrawer(true)}>Add Asset</Button>
+            </div>
             <Drawer
                 title="Add Asset"
                 size='large'
@@ -77,6 +82,16 @@ export const HeaderComp = () => {
                 destroyOnHidden={true}
             >
                 <AddNewAsset onClose={() => setDrawer(false)} />
+            </Drawer>
+            <Drawer
+                title="Delete Asset"
+                size='default'
+                closable={{ 'aria-label': 'Close Button' }}
+                onClose={() => setDrawer2(prev => !prev)}
+                open={drawer2}
+                destroyOnHidden={true}
+            >
+                <DeleteAsset onClose={() => setDrawer2(false)} />
             </Drawer>
         </Header >
     );

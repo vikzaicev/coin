@@ -1,0 +1,16 @@
+.text {
+    color: #e3d8d8;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 350px;
+}
+.pie {
+    margin-bottom: 10px;
+}

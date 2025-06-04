@@ -49,8 +49,12 @@ export function CriptoContextProvider({ children }) {
         setDataAssets((prev) => mapAssets([...prev, newAsset], coinData));
     }
 
+    const deleteAsset = (id) => {
+        setDataAssets((prev) => prev.filter(asset => asset.id !== id));
+    }
+
     return (
-        <CriptoContext.Provider value={{ loading, dataAssets, coinData, addAsset }}>
+        <CriptoContext.Provider value={{ loading, dataAssets, coinData, addAsset, deleteAsset }}>
             {children}
         </CriptoContext.Provider>
     );

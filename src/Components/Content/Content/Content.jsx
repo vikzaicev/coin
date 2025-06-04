@@ -3,6 +3,7 @@ import { Layout } from "antd";
 import { useContext } from "react";
 import { CriptoContext } from "../../../Context";
 import { PieChart } from '../Chart/Chart';
+import { AssetTable } from '../AssetTable/AssetTable';
 
 export const ContentComp = () => {
     const { coinData, dataAssets } = useContext(CriptoContext);
@@ -19,13 +20,15 @@ export const ContentComp = () => {
         minHeight: 'calc(100vh - 60px)',
         color: '#fff',
         backgroundColor: '#001529',
+        padding: '10px'
     };
     return (
         <Layout.Content style={contentStyle}>
             <div className={styles.title}>Portfolio:  {total}$</div>
-            <div className={styles.chart}>
+            {dataAssets.length > 0 && <div className={styles.chart} >
                 <PieChart />
-            </div>
+            </div>}
+            <AssetTable />
         </Layout.Content>
     );
 }
